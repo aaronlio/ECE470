@@ -10,10 +10,10 @@ function q = inverse(H, myrobot)
     % Theta 3 calculation produces incorrect result....
 
     D = (((oc_z -DH(1,1))^2 + oc_x^2 + oc_y^2  - DH(2,1)^2) - DH(2,2)^2 - DH(4,1)^2) / (2 * DH(2,2) * DH(4,1));
-    theta3 = atan2(D, real(sqrt(1-D)^2));
-
+    theta3 = atan2(D, real(sqrt(1-D^2))); 
+    
     theta2 = atan2(oc_z - DH(1, 1), real(sqrt(oc_x^2 + oc_y^2 -DH(2,1)^2))) - ...
-        atan2(DH(4,1)*sin(theta3-(pi/2)), DH(4,1)*cos(theta3-(pi/2)));
+        atan2(DH(4,1)*sin(theta3-(pi/2)), DH(2,2) + DH(4,1)*cos(theta3-(pi/2)));
 
     R03 = myrobot.A(1:3, [theta1 theta2 theta3]).R;
     R36 = R03.' * H(1:3, 1:3);
