@@ -60,12 +60,13 @@ q_res = zeros(100, 6);
 pos_res = zeros(100, 3);
 
 for i = 1:100
-    H(1:3, 4) = o(:).T;
+    H(1:3, 4) = o(:, i).';
     q_res(i, :) = inverse(H, myrobot);
 
     % Validate forward and inverse methods by comparing given coordinates
     % to computed coordinates
-    pos_res(i, :) = forward(q_res(i, :), myrobot);
+    H_res = forward(q_res(i, :), myrobot);
+    pos_res(i, :) = H_res(1:3,4);
 end
 
 check = isequal(pos_res, o);
