@@ -65,6 +65,7 @@ for i = 1:100
 
     % Validate forward and inverse methods by comparing given coordinates
     % to computed coordinates
+
     H_res = forward(q_res(i, :), myrobot);
     pos_res(i, :) = H_res(1:3,4);
 end
