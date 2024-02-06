@@ -1,9 +1,9 @@
 function H = forward(joint, myrobot)
     % Initialize transformation matrix as an identity matrix
     H = eye(4);
-    
-    for i = 1:6
-        % Get DH parameters -> Note to self: Plus or minus offset?
+    sz = size(joint);
+    for i = 1:sz(2)
+        % Get DH parameters
         theta = joint(i) + myrobot.links(i).offset;
         d = myrobot.links(i).d;
         a = myrobot.links(i).a;
