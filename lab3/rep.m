@@ -67,6 +67,8 @@ for i = 1:6
 end
 
 tau = tau.';
-tau = tau/norm(tau); 
+if norm(tau) ~= 0
+    tau = tau/norm(tau); 
+end
 
 end
