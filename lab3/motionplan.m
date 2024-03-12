@@ -5,6 +5,7 @@ max_loop = 3000;
 index = 0;
 
 while true
+   %calculate the sum of attractive and repulsive tau
    tau_rep = [0,0,0,0,0,0];
    for i = 1:size(obs)
       tau_rep = tau_rep +  rep(q(size(q,1), :), myrobot, obs{i});
