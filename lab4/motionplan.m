@@ -1,5 +1,6 @@
 function qref = motionplan(q0, q2, t1, t2, myrobot, obs, tol)
-alpha = 0.01;
+alpha_att = 0.013;
+alpha_rep = 0.01;
 q = q0;
 max_loop = 3000;
 index = 0;
@@ -11,7 +12,7 @@ while true
       tau_rep = tau_rep +  rep(q(size(q,1), :), myrobot, obs{i});
    end
    tau_att = att(q(size(q,1), :), q2, myrobot);
-   q_kp1 = q(size(q,1),:) + alpha*(tau_att + tau_rep);
+   q_kp1 = q(size(q,1),:) + alpha_att*tau_att + alpha_rep*tau_rep;
    q = [q;q_kp1];
     
    %wrap angles aroung 2pi for termination comparison

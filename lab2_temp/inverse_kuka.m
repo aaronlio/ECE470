@@ -12,14 +12,11 @@ function q = inverse_kuka(H, myrobot)
     % compute theta 3 using formula
     D = ((DH(4,1))^2 + (DH(3,2))^2 + (DH(2,2))^2 - (oc_z - DH(1,1))^2 - (real(sqrt(oc_x^2 + oc_y^2))-DH(1,2))^2)...
         / (2 * real(sqrt((DH(4,1))^2 + (DH(3,2))^2)) * DH(2,2));
-
-    theta3= 3*pi/2 - atan2(D, -real(sqrt(1-D^2))) + atan2(DH(3,2), DH(4,1));  %elbow up solution
-    %theta3 = -pi/2 - atan2(D, -real(sqrt(1-D^2))) + atan2(DH(3,2), DH(4,1));
+    theta3 = atan2(-D, real(sqrt(1-D^2))) - atan2(DH(3,2), DH(4,1));
     
-%     D = (DH(4,1)^2 + DH(3,2)^2 + DH(2,2)^2 - (oc_z - DH(1,1))^2 - (real(sqrt(oc_x^2 + oc_y^2))-DH(1,2))^2)...
-%         / (2 * DH(2,2) * real(sqrt((DH(4,1))^2 + (DH(3,2))^2)));
-%     
-%     theta3 = 3*pi/2 - atan2(-real(sqrt(1-D^2)), D) - atan2(DH(3,2), DH(4,1)); %elbow down solution 
+    %D = (DH(4,1)^2 + DH(3,2)^2 + DH(2,2)^2 - (oc_z - DH(1,1))^2 - (real(sqrt(oc_x^2 + oc_y^2))-DH(1,2))^2)...
+    %    / (2 * DH(2,2) * real(sqrt((DH(4,1))^2 + (DH(3,2))^2)));
+    %theta3 = 3*pi/2 - atan2(-real(sqrt(1-D^2)), D) - atan2(DH(3,2), DH(4,1)); 
     
     % compute theta 2 using formula
     beta1 = atan2(oc_z-DH(1,1), real(sqrt(oc_x^2 + oc_y^2))-DH(1,2));
@@ -46,6 +43,14 @@ function q = inverse_kuka(H, myrobot)
     q = [theta1 theta2 theta3 theta4 theta5 theta6];
     
     %wrap angles around [pi, -pi)
-    q = wrapToPi(q);
+    for i = 1:3
+        temp = mod(q(i), 2*pi);
+        if temp > pi
+            temp = temp - 2*pi;
+        elseif temp < -pi
+            temp = temp + 2*pi;
+        end
+        q(i) = temp;
+    end
     
 end

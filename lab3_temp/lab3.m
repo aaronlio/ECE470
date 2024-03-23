@@ -32,16 +32,3 @@ tau_1 = rep(q3, myrobot, obs{1});
 
 q_temp = [pi/2 pi 1.2*pi 0 0 0];
 tau_temp = rep(q_temp, myrobot, obs{6});
-
-
-%% test motionplan with obs
-setupobstacle
-hold on
-axis([-100 100 -100 100 0 200])
-view(-32,50)
-plotobstacle(obs);
-qref = motionplan(q1,q2,0,10,myrobot,obs,0.01);
-t=linspace(0,10,300);
-q=ppval(qref,t);
-plot(myrobot,q);
-hold off
