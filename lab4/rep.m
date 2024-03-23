@@ -104,7 +104,7 @@ for i = 1:6
             F_rep_plane(:, i) = [0;0;0];
     end
     
-    %F_rep(:,i) = F_rep(:,i) + F_rep_plane(:, i);
+    F_rep(:,i) = F_rep(:,i) + F_rep_plane(:, i);
 end
 
 
