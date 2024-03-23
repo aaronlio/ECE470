@@ -5,7 +5,7 @@ DH = [0     400    25    pi/2;
       0     0      35    pi/2;
       0     365    0     -pi/2;
       0     0      0     pi/2;
-      0     161.44 156  0];
+      0     161.44 -156  0];
   
 %           theta  d      a     alpha
 DH_forces = [0     400    25    pi/2;
@@ -36,17 +36,15 @@ t1 = 0;
 t2 = 10;
 q1 = inverse_kuka(H1, kuka);
 q2 = inverse_kuka(H2, kuka);
-%q1 and q2 are incorrect ??
-% q1 = [0.6855,0.2089,0.4806,0.8145,1.0558,-0.4811];
-% q2 = [-0.6855,0.2089,0.4806,-0.8145,1.0558,0.4811];
-
 qref = motionplan(q1, q2, t1, t2, kuka_forces, prepobs, 0.03);
 
+%plot
+hold on
 t=linspace(0,10,300);
 q=ppval(qref,t)';
-% view(-32,50)
+view(-32,50)
+axis([-1000 1000 -1000 1000 -1000 1000])
 plotobstacle(prepobs);
-%plot(kuka,q1);
 plot(kuka,q);
-
+hold off
 
