@@ -11,10 +11,11 @@ function q = inverse_kuka(H, myrobot)
     
     % compute theta 3 using formula
     D = ((DH(4,1))^2 + (DH(3,2))^2 + (DH(2,2))^2 - (oc_z - DH(1,1))^2 - (real(sqrt(oc_x^2 + oc_y^2))-DH(1,2))^2)...
-        / (2 * real(sqrt((DH(4,1))^2 + (DH(3,2))^2)) * DH(2,2));
+       / (2 * real(sqrt((DH(4,1))^2 + (DH(3,2))^2)) * DH(2,2));
 
-    theta3= 3*pi/2 - atan2(D, -real(sqrt(1-D^2))) + atan2(DH(3,2), DH(4,1));  %elbow up solution
-    %theta3 = -pi/2 - atan2(D, -real(sqrt(1-D^2))) + atan2(DH(3,2), DH(4,1));
+    %theta3= 3*pi/2 - atan2(D, -real(sqrt(1-D^2))) + atan2(DH(3,2), DH(4,1));  
+    theta3 = -pi/2 - atan2(D, -real(sqrt(1-D^2))) + atan2(DH(3,2), DH(4,1));   %elbow up solution
+    
     
 %     D = (DH(4,1)^2 + DH(3,2)^2 + DH(2,2)^2 - (oc_z - DH(1,1))^2 - (real(sqrt(oc_x^2 + oc_y^2))-DH(1,2))^2)...
 %         / (2 * DH(2,2) * real(sqrt((DH(4,1))^2 + (DH(3,2))^2)));

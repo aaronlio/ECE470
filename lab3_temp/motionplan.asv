@@ -1,7 +1,0 @@
-function qref = motionplan(q0, q2, t1, t2, myrobot, obs, tol)
-alpha = [0.01, 0.01, 0.01, 0.01, 0.01, 0.01];
-q = q0;
-while norm(q(size(q,1), 1:5) - q2(1:5)) > tol
-    q(:
-end
-end
