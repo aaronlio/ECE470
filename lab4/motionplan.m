@@ -1,6 +1,6 @@
 function qref = motionplan(q0, q2, t1, t2, myrobot, obs, tol)
-alpha_att = 0.013;
-alpha_rep = 0.01;
+alpha_att = 0.01;
+alpha_rep = 0.02;
 q = q0;
 max_loop = 3000;
 index = 0;
@@ -8,7 +8,7 @@ index = 0;
 while true
    %calculate the sum of attractive and repulsive tau
    tau_rep = [0,0,0,0,0,0];
-   for i = 1:size(obs)
+   for i = 1:length(obs)
       tau_rep = tau_rep +  rep(q(size(q,1), :), myrobot, obs{i});
    end
    tau_att = att(q(size(q,1), :), q2, myrobot);

@@ -85,28 +85,29 @@ elseif strcmp(obs.type, 'sph')
             F_rep(:, i) = [0;0;0];
         end
     end
-end
-
+    
 %workplane
-F_rep_plane = zeros(3,1);
-for i = 1:6
-    if o(3,i+1) > 32
-        rho(i) = o(3,i+1) - 32;
-        rhoi_v = [0, 0, o(3,i+1)-32];
-    else
-        rho(i) = 32 - o(3,i+1);
-        rhoi_v = [0, 0, o(3,i+1)-32];
-    end
-    
-    if rho(i) <= rho0
-            F_rep_plane(:, i) = zeta*((1/rho(i)) - (1/rho0)) * (1/rho(i)^2) * (rhoi_v/norm(rhoi_v)); %Calculate F_rep when ||O(i) - b|| < rho0
+elseif strcmp(obs.type, 'plane')
+    F_rep_plane = zeros(3,1);
+    rho0 = obs.rho0;
+    for i = 1:6
+        if o(3,i+1) > 32
+            rho(i) = o(3,i+1) - 32;
+            rhoi_v = [0, 0, o(3,i+1)-32];
         else
-            F_rep_plane(:, i) = [0;0;0];
-    end
-    
-    F_rep(:,i) = F_rep(:,i) + F_rep_plane(:, i);
-end
+            rho(i) = 32 - o(3,i+1);
+            rhoi_v = [0, 0, o(3,i+1)-32];
+        end
 
+        if rho(i) <= rho0
+                F_rep_plane(:, i) = zeta*((1/rho(i)) - (1/rho0)) * (1/rho(i)^2) * (rhoi_v/norm(rhoi_v)); %Calculate F_rep when ||O(i) - b|| < rho0
+            else
+                F_rep_plane(:, i) = [0;0;0];
+        end
+
+        F_rep = F_rep_plane;
+    end
+end
 
 F_rep = F_rep * 1000000;
 
