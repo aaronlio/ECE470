@@ -13,3 +13,4 @@ kuka = mykuka(DH);
 H1 = forward_kuka([pi/5 pi/3 -pi/4 pi/4 pi/3 pi/4],kuka);
 test_q = inverse_kuka(H1,kuka);
 plot(kuka, test_q)
+
